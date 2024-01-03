@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    text-align: right;
+}
+
+a {
+    display: inline-block;
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+    padding: 10px; 
+    border-radius: 50px;
+    font-size: 15px; 
+}
+
+
+a.login {
+    background-color: blue; 
+}
+
+
+a.signup {
+    background-color: rgb(21, 181, 21); 
+}
