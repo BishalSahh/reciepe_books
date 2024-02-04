@@ -1,34 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-    
-</head>
-<body>
-
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
     <div class="login-box">
+      <h4>Login Page</h4>
+      <form id="login-form">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" id="email" />
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" id="password" />
+        <div class="button">
+          <input type="button" value="Login" id="login-button"/>
+        </div>
+      </form>
 
-        <h4>Login</h4>
-        <form>
-            <label>Username</label>
-            <input type="text" placeholder="Enter username" id="username"/>
-            <label>Password</label>
-            <input type="password" placeholder="Enter password" id="password"/>
-            <input type="button" value="Submit"/>
-          </form>
+      <div class="signup-section">
+        <p>don't have an account?</p>
+        <a href="../signup/signup.html">signup</a>
+      </div>
     </div>
-    <p>Don't have an acoount</p>
-    <p class="para-2">
-     <a href="../signup/signup.html">Signup</a>
 
-</p>
-<script src="login.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
+      const firebaseConfig = {
+        apiKey: "AIzaSyD-SUlsGq4SLpVFqu3m1NdUhzMEyZKmb8E",
+        authDomain: "recepie-book-a6435.firebaseapp.com",
+        databaseURL: "https://recepie-book-a6435-default-rtdb.firebaseio.com",
+        projectId: "recepie-book-a6435",
+        storageBucket: "recepie-book-a6435.appspot.com",
+        messagingSenderId: "290281355439",
+        appId: "1:290281355439:web:8b59a2abf10160d5eabc5a",
+      };
 
-    
-</body>
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
+      document.getElementById("login-button").addEventListener("click", function () {
+        login();
+      });
+
+      function login() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            var user = userCredential.user;
+            alert("User logged in");
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error("Login error:", errorCode, errorMessage);
+          });
+      }
+    </script>
+  </body>
 </html>
