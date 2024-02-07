@@ -28,6 +28,7 @@ function login() {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       var user = userCredential.user;
+      localStorage.setItem("uid", user.uid)
       alert("User logged in");
     })
     .catch((error) => {

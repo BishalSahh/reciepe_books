@@ -1,32 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>upload</title>
-    <link rel="stylesheet" href="upload.css">
+    <title>Recipe Form</title>
 </head>
-<body>
-    <div class="upload-container">
-        video description <input id="video-description" type="text">
-        <label>video file</label>
-        <input type="file" id="video-file" accept="video/mp4">
-    </div>
-    
-    <div id="selected-video"></div>
-    <button id="upload">Upload</button>
-    
-    <script>
-        document.getElementById('video-file').addEventListener('change', function() {
-            var selectedVideoDiv = document.getElementById('selected-video');
-            var videoDescription = document.getElementById('video-description').value;
 
-            // Display the selected video below the file input
-            selectedVideoDiv.innerHTML = `<p>${videoDescription}</p>`;
-            selectedVideoDiv.innerHTML += `<video width="320" height="240" controls><source src="${URL.createObjectURL(this.files[0])}" type="video/mp4"></video>`;
-        });
+<body>
+
+    <h2>Add a Recipe</h2>
+
+    <form id="recipeForm">
+        <label for="recipeName">Recipe Name:</label>
+        <input type="text" id="recipeName" required><br>
+
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" required></textarea><br>
+
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" required></textarea><br>
+
+        <label>Vegetarian or Non-Vegetarian:</label>
+        <input type="radio" id="veg" name="vegNonVeg" value="vegetarian" required>
+        <label for="veg">Vegetarian</label>
+        <input type="radio" id="nonVeg" name="vegNonVeg" value="non-vegetarian" required>
+        <label for="nonVeg">Non-Vegetarian</label><br>
+
+        <label for="recipeFile">Upload File/Image/Video:</label>
+        <input type="file" id="recipeFile"><br>
+
+        <button type="button" id="addRecipe">Add Recipe</button>
+    </form>
+
+    <h2>Recipe List</h2>
+
+    <label for="filterDropdown">Filter by:</label>
+    <select id="filterDropdown">
+        <option value="all">All</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="non-vegetarian">Non-Vegetarian</option>
+    </select>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody id="recipeTableBody"></tbody>
+    </table>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, doc, getDocs, deleteDoc, setDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUSDVECbqv26W-0fWZ0LPAoBDd85c2OwY",
+            authDomain: "test2-71131.firebaseapp.com",
+            projectId: "test2-71131",
+            storageBucket: "test2-71131.appspot.com",
+            messagingSenderId: "235855746800",
+            appId: "1:235855746800:web:5589abdfbcbff16e7f5435",
+            measurementId: "G-DJ0VT662X5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+        const filterDropdown = document.getElementById("filterDropdown");
+        const recipeTableBody = document.getElementById("recipeTableBody");
+
+        async function fetchAndDisplayRecipes() {
+            const userId = localStorage.getItem("uid");
+            const filterValue = filterDropdown.value;
+
+            try {
+                const recipesCollection = collection(db, "Recipes");
+                const userDocument = doc(recipesCollection, userId);
+
+                let querySnapshot;
+
+                if (filterValue === "all") {
+                    const vegQuery = await getDocs(collection(userDocument, "veg"));
+                    const nonVegQuery = await getDocs(collection(userDocument, "nonveg"));
+                    querySnapshot = [...vegQuery.docs, ...nonVegQuery.docs];
+                } else {
+                    const subCollectionQuery = await getDocs(collection(userDocument, filterValue));
+                    querySnapshot = subCollectionQuery.docs;
+                }
+
+                recipeTableBody.innerHTML = "";
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const type = data.veg ? "vegetarian" : "non-vegetarian";
+                    const row = `<tr>
+                                <td>${data.name}</td>
+                                <td>${data.ingredients}</td>
+                                <td>${data.instructions}</td>
+                                <td>${type}</td>
+                            </tr>`;
+                    recipeTableBody.innerHTML += row;
+                });
+
+            } catch (error) {
+                console.error("Error fetching recipes: ", error);
+            }
+        }
+
+        filterDropdown.addEventListener('change', fetchAndDisplayRecipes);
+
+        async function addRecipe() {
+            const userId = localStorage.getItem("uid");
+
+            const recipeName = document.getElementById("recipeName").value;
+            const ingredients = document.getElementById("ingredients").value;
+            const instructions = document.getElementById("instructions").value;
+            const vegNonVeg = document.querySelector('input[name="vegNonVeg"]:checked').value;
+            const fileInput = document.getElementById("recipeFile");
+            const file = fileInput.files[0];
+
+            try {
+                const recpieCollection = collection(db, "Recipes");
+                const vegNonVegCollection = collection(doc(recpieCollection, userId), vegNonVeg);
+
+                const recipeDocRef = await addDoc(vegNonVegCollection, {
+                    approvalStatus: false,
+                    name: recipeName,
+                    ingredients: ingredients,
+                    instructions: instructions,
+                    type: vegNonVeg
+                });
+
+                console.log("Recipe added with ID: ", recipeDocRef.id);
+
+                const approveRecpieCollection = collection(db, "approveRecipes");
+                const approveRecipeDoc = doc(approveRecpieCollection, recipeDocRef.id)
+
+
+                await setDoc(approveRecipeDoc, {
+                    approvalStatus: false,
+                    name: recipeName,
+                    ingredients: ingredients,
+                    instructions: instructions,
+                    type: vegNonVeg
+                })
+
+
+                if (file) {
+                    const storageRef = ref(storage, `recipeFiles/${recipeDocRef.id}`);
+                    const snapshot = await uploadBytes(storageRef, file);
+                    console.log("File uploaded successfully!");
+                }
+
+                alert("Recipe added successfully!");
+                fetchAndDisplayRecipes();
+
+            } catch (error) {
+                console.error("Error adding recipe: ", error);
+                alert("Error adding recipe. Please try again.");
+            }
+        }
+
+        document.getElementById('addRecipe').addEventListener('click', addRecipe);
     </script>
 
-    <script src="../uploadrecipe/upload.js"></script>
 </body>
+
 </html>

@@ -67,9 +67,7 @@
         if (password === ConfirmPassword) {
           createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // Signed up
             const user = userCredential.user;
-            // You can do something after successful signup
             alert("id created");
           })
           .catch((error) => {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approved Recipes</title>
+</head>
+
+<body>
+
+    <h2>Approved Recipes</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody id="approveRecipeTableBody"></tbody>
+    </table>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUSDVECbqv26W-0fWZ0LPAoBDd85c2OwY",
+            authDomain: "test2-71131.firebaseapp.com",
+            projectId: "test2-71131",
+            storageBucket: "test2-71131.appspot.com",
+            messagingSenderId: "235855746800",
+            appId: "1:235855746800:web:5589abdfbcbff16e7f5435",
+            measurementId: "G-DJ0VT662X5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const approveRecipeTableBody = document.getElementById("approveRecipeTableBody");
+
+        async function fetchAndDisplayApproveRecipes() {
+            try {
+                const approveRecipesCollection = collection(db, "approveRecipes");
+                const approveQuerySnapshot = await getDocs(approveRecipesCollection);
+
+                approveRecipeTableBody.innerHTML = "";
+
+                approveQuerySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const type = data.type || "unknown"; 
+                    const row = `<tr>
+                                <td>${data.name}</td>
+                                <td>${data.ingredients}</td>
+                                <td>${data.instructions}</td>
+                                <td>${type}</td>
+                            </tr>`;
+                    approveRecipeTableBody.innerHTML += row;
+                });
+
+            } catch (error) {
+                console.error("Error fetching approved recipes: ", error);
+            }
+        }
+
+        fetchAndDisplayApproveRecipes(); // Call the function to fetch and display on page load
+    </script>
+
+</body>
+
+</html>
