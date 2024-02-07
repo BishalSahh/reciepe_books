@@ -1,64 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Login</title>
-  <link rel="stylesheet" href="login.css" />
-</head>
-<body>
-  <div class="login-box">
-    <h1>Login</h1>
-    <form id="login-form">
-      <label>Email</label>
-      <input type="email" placeholder="Enter email" id="email" />
-      <label>Password</label>
-      <input type="password" placeholder="Enter password" id="password" />
-      <div class="button">
-        <input type="button" value="Login" id="login-button" />
-      </div>
-    </form>
-    <p class="para-2">
-      Don't have an account?
-      <a href="../Signup/signup.html" id="signup">Sign up here</a>
-    </p>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
-    <p id="error-message"></p>
-  </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyD-SUlsGq4SLpVFqu3m1NdUhzMEyZKmb8E",
+  authDomain: "recepie-book-a6435.firebaseapp.com",
+  databaseURL: "https://recepie-book-a6435-default-rtdb.firebaseio.com",
+  projectId: "recepie-book-a6435",
+  storageBucket: "recepie-book-a6435.appspot.com",
+  messagingSenderId: "290281355439",
+  appId: "1:290281355439:web:8b59a2abf10160d5eabc5a",
+};
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD-SUlsGq4SLpVFqu3m1NdUhzMEyZKmb8E",
-      authDomain: "recepie-book-a6435.firebaseapp.com",
-      projectId: "recepie-book-a6435",
-      storageBucket: "recepie-book-a6435.appspot.com",
-      messagingSenderId: "290281355439",
-      appId: "1:290281355439:web:8b59a2abf10160d5eabc5a",
-    };
+document.getElementById("login-button").addEventListener("click", function () {
+  login();
+});
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+function login() {
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
 
-    const loginForm = document.getElementById("login-form");
-    const loginButton = document.getElementById("login-button");
-    const errorMessage = document.getElementById("error-message");
-
-    loginButton.addEventListener("click", () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("User logged in:", user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessageText = error.message;
-          errorMessage.textContent = errorMessageText;
-        });
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      var user = userCredential.user;
+      alert("User logged in");
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.error("Login error:", errorCode, errorMessage);
     });
-  </script>
-</body>
-</html>
+}

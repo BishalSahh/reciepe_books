@@ -8,15 +8,25 @@
 </head>
 <body>
     <div class="upload-container">
-
-        video discription <input id="video-discription" type="text">
-    <label>videofile</label>
-    <input type="file" id="vide-file" accept="video/mp4">
-
+        video description <input id="video-description" type="text">
+        <label>video file</label>
+        <input type="file" id="video-file" accept="video/mp4">
     </div>
     
+    <div id="selected-video"></div>
+    <button id="upload">Upload</button>
+    
+    <script>
+        document.getElementById('video-file').addEventListener('change', function() {
+            var selectedVideoDiv = document.getElementById('selected-video');
+            var videoDescription = document.getElementById('video-description').value;
 
-    <!-- <button id="select">select</button>
-    <button id="upload">Upload</button> -->
+            // Display the selected video below the file input
+            selectedVideoDiv.innerHTML = `<p>${videoDescription}</p>`;
+            selectedVideoDiv.innerHTML += `<video width="320" height="240" controls><source src="${URL.createObjectURL(this.files[0])}" type="video/mp4"></video>`;
+        });
+    </script>
+
+    <script src="../uploadrecipe/upload.js"></script>
 </body>
 </html>
