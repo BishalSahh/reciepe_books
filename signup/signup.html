@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="signup.css" />
-  </head>
-  <body>
-    <div class="signup-box">
-      <h1>Sign Up Form</h1>
-      <form id="signup-form">
-        <label>First Name</label>
-        <input type="text" placeholder="Enter firstname" id="firstname" />
-        <label>Last Name</label>
-        <input type="text" placeholder="Enter lastname" id="lastname" />
-        <label>Email</label>
-        <input type="email" placeholder="Enter email" id="email" />
-        <label>Password</label>
-        <input type="password" placeholder="Enter password" id="password" />
-        <label>Confirm Password</label>
-        <input type="password" placeholder="Re-Enter Password" id="ConfirmPassword" />
-        <div class="button">
-          <input type="button" value="Submit" id="signup-button" />
-        </div>
-      </form>
-      <p class="para-2">
-        Already have an account?
-        <a href="../Login/login.html" id="login">Login here</a>
-      </p>
-      <p id="error-message"></p>
-    </div>
 
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-      import {
-        getAuth,
-        createUserWithEmailAndPassword,
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css" />
+</head>
 
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyD-SUlsGq4SLpVFqu3m1NdUhzMEyZKmb8E",
-        authDomain: "recepie-book-a6435.firebaseapp.com",
-        databaseURL: "https://recepie-book-a6435-default-rtdb.firebaseio.com",
-        projectId: "recepie-book-a6435",
-        storageBucket: "recepie-book-a6435.appspot.com",
-        messagingSenderId: "290281355439",
-        appId: "1:290281355439:web:8b59a2abf10160d5eabc5a",
-      };
+<body>
+  <div class="signup-box">
+    <h1>Sign Up Form</h1>
+    <form id="signup-form">
+      <label>First Name</label>
+      <input type="text" placeholder="Enter firstname" id="firstname" />
+      <label>Last Name</label>
+      <input type="text" placeholder="Enter lastname" id="lastname" />
+      <label>Email</label>
+      <input type="email" placeholder="Enter email" id="email" />
+      <label>Password</label>
+      <input type="password" placeholder="Enter password" id="password" />
+      <label>Confirm Password</label>
+      <input type="password" placeholder="Re-Enter Password" id="ConfirmPassword" />
+      <div class="button">
+        <input type="button" value="Submit" id="signup-button" />
+      </div>
+    </form>
+    <p class="para-2">
+      Already have an account?
+      <a href="../Login/login.html" id="login">Login here</a>
+    </p>
+    <p id="error-message"></p>
+  </div>
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const database = getDatabase(app);
-      const auth = getAuth(app);
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-      const signupForm = document.getElementById("signup-form");
-      const signupButton = document.getElementById("signup-button");
-      const errorMessage = document.getElementById("error-message");
+    const firebaseConfig = {
+      apiKey: "AIzaSyBrxLEp7uHB4LpYlradeW1P-jAtHJu3usk",
+      authDomain: "projectsamosa-a7511.firebaseapp.com",
+      projectId: "projectsamosa-a7511",
+      storageBucket: "projectsamosa-a7511.appspot.com",
+      messagingSenderId: "142486016333",
+      appId: "1:142486016333:web:ae101ac20bfaeacc766704",
+      measurementId: "G-SV6Y54B4ZK"
+    };
 
-      signupButton.addEventListener("click", () => {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const ConfirmPassword =
-          document.getElementById("ConfirmPassword").value;
 
-        if (password === ConfirmPassword) {
-          createUserWithEmailAndPassword(auth, email, password)
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    const signupForm = document.getElementById("signup-form");
+    const signupButton = document.getElementById("signup-button");
+    const errorMessage = document.getElementById("error-message");
+
+    signupButton.addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const ConfirmPassword =
+        document.getElementById("ConfirmPassword").value;
+
+      if (password === ConfirmPassword) {
+        createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             const user = userCredential.user;
             alert("id created");
@@ -75,13 +75,14 @@
             const errorMessageText = error.message;
             errorMessage.textContent = errorMessageText;
           });
-        }
-        else{
-          alert("Re Bhai Password sahi dal")
-        }
+      }
+      else {
+        alert("Re Bhai Password sahi dal")
+      }
 
-       
-      });
-    </script>
-  </body>
+
+    });
+  </script>
+</body>
+
 </html>

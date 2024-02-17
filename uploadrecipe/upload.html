@@ -5,171 +5,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h2>Add a Recipe</h2>
+    <div class="container mt-5">
+        <h2 class="text-center">Add a Recipe</h2>
 
-    <form id="recipeForm">
-        <label for="recipeName">Recipe Name:</label>
-        <input type="text" id="recipeName" required><br>
+        <form id="recipeForm">
+            <div class="mb-3">
+                <label for="recipeName" class="form-label">Recipe Name:</label>
+                <input type="text" class="form-control" id="recipeName" required>
+            </div>
 
-        <label for="ingredients">Ingredients:</label>
-        <textarea id="ingredients" required></textarea><br>
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients:</label>
+                <textarea class="form-control" id="ingredients" required></textarea>
+            </div>
 
-        <label for="instructions">Instructions:</label>
-        <textarea id="instructions" required></textarea><br>
+            <div class="mb-3">
+                <label for="instructions" class="form-label">Instructions:</label>
+                <textarea class="form-control" id="instructions" required></textarea>
+            </div>
 
-        <label>Vegetarian or Non-Vegetarian:</label>
-        <input type="radio" id="veg" name="vegNonVeg" value="vegetarian" required>
-        <label for="veg">Vegetarian</label>
-        <input type="radio" id="nonVeg" name="vegNonVeg" value="non-vegetarian" required>
-        <label for="nonVeg">Non-Vegetarian</label><br>
+            <div class="mb-3">
+                <label class="form-label">Vegetarian or Non-Vegetarian:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="veg" name="vegNonVeg" value="vegetarian"
+                        required>
+                    <label class="form-check-label" for="veg">Vegetarian</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="nonVeg" name="vegNonVeg"
+                        value="non-vegetarian" required>
+                    <label class="form-check-label" for="nonVeg">Non-Vegetarian</label>
+                </div>
+            </div>
 
-        <label for="recipeFile">Upload File/Image/Video:</label>
-        <input type="file" id="recipeFile"><br>
+            <div class="mb-3">
+                <label for="recipeFile" class="form-label">Upload File/Image/Video:</label>
+                <input type="file" class="form-control" id="recipeFile">
+            </div>
 
-        <button type="button" id="addRecipe">Add Recipe</button>
-    </form>
+            <button type="button" class="btn btn-primary" id="addRecipe">Add Recipe</button>
+        </form>
+    </div>
 
-    <h2>Recipe List</h2>
-
-    <label for="filterDropdown">Filter by:</label>
-    <select id="filterDropdown">
-        <option value="all">All</option>
-        <option value="vegetarian">Vegetarian</option>
-        <option value="non-vegetarian">Non-Vegetarian</option>
-    </select>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Ingredients</th>
-                <th>Instructions</th>
-                <th>Type</th>
-            </tr>
-        </thead>
-        <tbody id="recipeTableBody"></tbody>
-    </table>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, doc, getDocs, deleteDoc, setDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+        import { getFirestore, collection, addDoc, doc, getDocs, deleteDoc, setDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCUSDVECbqv26W-0fWZ0LPAoBDd85c2OwY",
-            authDomain: "test2-71131.firebaseapp.com",
-            projectId: "test2-71131",
-            storageBucket: "test2-71131.appspot.com",
-            messagingSenderId: "235855746800",
-            appId: "1:235855746800:web:5589abdfbcbff16e7f5435",
-            measurementId: "G-DJ0VT662X5"
+            apiKey: "AIzaSyBrxLEp7uHB4LpYlradeW1P-jAtHJu3usk",
+            authDomain: "projectsamosa-a7511.firebaseapp.com",
+            projectId: "projectsamosa-a7511",
+            storageBucket: "projectsamosa-a7511.appspot.com",
+            messagingSenderId: "142486016333",
+            appId: "1:142486016333:web:ae101ac20bfaeacc766704",
+            measurementId: "G-SV6Y54B4ZK"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore(app);
         const storage = getStorage(app);
-        const filterDropdown = document.getElementById("filterDropdown");
-        const recipeTableBody = document.getElementById("recipeTableBody");
 
-        async function fetchAndDisplayRecipes() {
-            const userId = localStorage.getItem("uid");
-            const filterValue = filterDropdown.value;
-
-            try {
-                const recipesCollection = collection(db, "Recipes");
-                const userDocument = doc(recipesCollection, userId);
-
-                let querySnapshot;
-
-                if (filterValue === "all") {
-                    const vegQuery = await getDocs(collection(userDocument, "veg"));
-                    const nonVegQuery = await getDocs(collection(userDocument, "nonveg"));
-                    querySnapshot = [...vegQuery.docs, ...nonVegQuery.docs];
-                } else {
-                    const subCollectionQuery = await getDocs(collection(userDocument, filterValue));
-                    querySnapshot = subCollectionQuery.docs;
-                }
-
-                recipeTableBody.innerHTML = "";
-
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const type = data.veg ? "vegetarian" : "non-vegetarian";
-                    const row = `<tr>
-                                <td>${data.name}</td>
-                                <td>${data.ingredients}</td>
-                                <td>${data.instructions}</td>
-                                <td>${type}</td>
-                            </tr>`;
-                    recipeTableBody.innerHTML += row;
-                });
-
-            } catch (error) {
-                console.error("Error fetching recipes: ", error);
-            }
-        }
-
-        filterDropdown.addEventListener('change', fetchAndDisplayRecipes);
-
-        async function addRecipe() {
-            const userId = localStorage.getItem("uid");
-
+        document.getElementById("addRecipe").addEventListener("click", async function () {
             const recipeName = document.getElementById("recipeName").value;
             const ingredients = document.getElementById("ingredients").value;
             const instructions = document.getElementById("instructions").value;
-            const vegNonVeg = document.querySelector('input[name="vegNonVeg"]:checked').value;
-            const fileInput = document.getElementById("recipeFile");
-            const file = fileInput.files[0];
+            const type = document.querySelector('input[name="vegNonVeg"]:checked').value;
+            const file = document.getElementById("recipeFile").files[0];
+            const userId = localStorage.getItem("uid");
+
+            if (!recipeName || !ingredients || !instructions || !type || !file) {
+                alert("Please fill in all fields and upload a file.");
+                return;
+            }
 
             try {
-                const recpieCollection = collection(db, "Recipes");
-                const vegNonVegCollection = collection(doc(recpieCollection, userId), vegNonVeg);
+                const userId = localStorage.getItem("uid");
+                const userRef = doc(collection(db, "approveRecipe"), userId);
 
-                const recipeDocRef = await addDoc(vegNonVegCollection, {
-                    approvalStatus: false,
+                await setDoc(userRef, { userId })
+                const recipesCollectionRef = collection(userRef, "recipes");
+                const recipeRef = doc(recipesCollectionRef, generateUniqueID());
+                const storageRef = ref(storage, `recipeImages/${recipeRef.id}/${file.name}`);
+                await uploadBytes(storageRef, file);
+                const fileURL = await getDownloadURL(storageRef);
+
+                const recipeData = {
                     name: recipeName,
                     ingredients: ingredients,
                     instructions: instructions,
-                    type: vegNonVeg
-                });
+                    type: type,
+                    timestamp: Timestamp.now(),
+                    fileURL: fileURL,
+                };
 
-                console.log("Recipe added with ID: ", recipeDocRef.id);
-
-                const approveRecpieCollection = collection(db, "approveRecipes");
-                const approveRecipeDoc = doc(approveRecpieCollection, recipeDocRef.id)
-
-
-                await setDoc(approveRecipeDoc, {
-                    approvalStatus: false,
-                    name: recipeName,
-                    ingredients: ingredients,
-                    instructions: instructions,
-                    type: vegNonVeg
-                })
-
-
-                if (file) {
-                    const storageRef = ref(storage, `recipeFiles/${recipeDocRef.id}`);
-                    const snapshot = await uploadBytes(storageRef, file);
-                    console.log("File uploaded successfully!");
-                }
+                await setDoc(recipeRef, recipeData);
 
                 alert("Recipe added successfully!");
-                fetchAndDisplayRecipes();
-
             } catch (error) {
-                console.error("Error adding recipe: ", error);
-                alert("Error adding recipe. Please try again.");
+                console.error("Error adding recipe:", error);
+                alert("An error occurred. Please try again.");
             }
-        }
+        });
 
-        document.getElementById('addRecipe').addEventListener('click', addRecipe);
+
+        function generateUniqueID() {
+            return doc(collection(db, "approveRecipe")).id;
+        }       
     </script>
 
 </body>

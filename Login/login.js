@@ -5,13 +5,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD-SUlsGq4SLpVFqu3m1NdUhzMEyZKmb8E",
-  authDomain: "recepie-book-a6435.firebaseapp.com",
-  databaseURL: "https://recepie-book-a6435-default-rtdb.firebaseio.com",
-  projectId: "recepie-book-a6435",
-  storageBucket: "recepie-book-a6435.appspot.com",
-  messagingSenderId: "290281355439",
-  appId: "1:290281355439:web:8b59a2abf10160d5eabc5a",
+  apiKey: "AIzaSyBrxLEp7uHB4LpYlradeW1P-jAtHJu3usk",
+  authDomain: "projectsamosa-a7511.firebaseapp.com",
+  projectId: "projectsamosa-a7511",
+  storageBucket: "projectsamosa-a7511.appspot.com",
+  messagingSenderId: "142486016333",
+  appId: "1:142486016333:web:ae101ac20bfaeacc766704",
+  measurementId: "G-SV6Y54B4ZK"
 };
 
 const app = initializeApp(firebaseConfig);
