@@ -37,3 +37,11 @@ function login() {
       console.error("Login error:", errorCode, errorMessage);
     });
 }
+
+var loginBtn= document.getElementById("login-button");
+
+loginBtn.addEventListener("click",function(){
+
+  document.getElementById("login-link").href = "index.html";
+  document.getElementById("login.link").click();
+});
