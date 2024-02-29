@@ -74,3 +74,13 @@ a.signup {
   
 }
 
+
+
+.article{
+    display: flex;
+    gap: 10px ;
+}
+
+.main{
+    width: calc(100% - 160px);
+}
