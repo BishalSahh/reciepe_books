@@ -30,6 +30,7 @@ function login() {
       var user = userCredential.user;
       localStorage.setItem("uid", user.uid)
       alert("User logged in");
+      window.location.href="../index.html"
     })
     .catch((error) => {
       var errorCode = error.code;

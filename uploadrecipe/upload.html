@@ -114,7 +114,7 @@
                     ingredients: ingredients,
                     instructions: instructions,
                     type: type,
-                    timestamp: Timestamp.now(),
+                    timestamp: Timestamp.now(),  
                     fileURL: fileURL,
                 };
 
@@ -140,7 +140,10 @@
 
         function generateUniqueID() {
             return doc(collection(db, "approveRecipe")).id;
-        }       
+        }  
+        
+       
+        
     </script>
 
 </body>
