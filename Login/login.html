@@ -6,9 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <link rel="stylesheet" href="login.css" />
+  <style>
+    body.dark-mode {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let body = document.body;
+
+      let savedTheme = localStorage.getItem("theme");
+      console.log(savedTheme);
+      if (savedTheme === "dark-mode") {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.add("light-mode");
+      }
+    });
+  </script>
 </head>
 
 <body>
+  
   <div class="login-box">
     <h4>Login Page</h4>
     <form id="login-form">
@@ -28,7 +48,9 @@
     </div>
   </div>
   <script src="../Login/login.js" type="module"></script>
+  
 
 </body>
+
 
 </html>

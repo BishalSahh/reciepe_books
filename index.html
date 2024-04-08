@@ -1,70 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-    <div>
-        <a href="./Login/login.html" class="login">Login</a>
-        <a href="./signup/signup.html" class="signup">Signup</a>
-    </header>
-    </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-    <div class="profile">
-        <p>username</p>
-     </div>
-     <h4>Your Recipe Platform</h4>
-   
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./Setting/setting.css" />
+  </head>
+  <body>
+    <header>
+      <div class="nav-1">
+        <div class="nav-logo border">
+          <div class="logo"></div>
+        </div>
+        <div class="nav-search">
+          <select class="search-select">
+            <option>category</option>
+            <option>veg</option>
+            <option>non-veg</option>
+          </select>
+          <input placeholder="search Recipe" class="search-input" />
+          <div class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
+
+        <div class="sign-in">
+          <a href="./Login/login.html"> Hello<br><span class="pop">signin</span></a>
+        </div>
+        <div class="signup">
+          <a href="./signup/signup.html" class="signup">Signup</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- <h4>Your Recipe Platform</h4> -->
+
     <div class="article">
-        <div class="nav">
-            <div class="home">
-                <i class="fa-solid fa-house"></i>
-                <a href="#">Home</a>
-            
-            </div>
-    
-            <div class="category">
+      <div class="nav">
+        <div class="home">
+          <i class="fa-solid fa-house"></i>
+          <a href="#">Home</a>
+        </div>
+
+        <!-- <div class="category">
                 <i class="fa-solid fa-list"></i>
                 <select>
                     <option>Categories</option> 
                     <option>veg</option>
                     <option>Non-veg</option>
                    </select>
-            </div>
-          
-           <div class="upload-recipe">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <a href="../uploadrecipe/upload.html">Upload</a>
-           </div>
-    
-           <div class="trending">
-            <i class="fa-regular fa-user"></i>
-            <a href="./myrecipe/myrecipe.html">Myrecipe</a>
-           </div>
-    
-            <!-- User Account Details -->
-            <div class="Setting">
-                <i class="fa-solid fa-gear"></i>
-              <a href="./Seeting/seeting.html">Settings</a>
-               </div>
-    
-            <div class="log-out">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <a href="#">Logout</a>
-            </div>
-    
-       </div>
-      
-       <div class="main">
-        <iframe src="./allRecipe.html" frameborder="0" width="100%" height="100%"></iframe>
-       </div>
+            </div> -->
+
+        <div class="upload-recipe">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <a href="../uploadrecipe/upload.html">Upload Recipe</a>
+        </div>
+        <div class="trending">
+          <i class="fa-regular fa-user"></i>
+          <a href="./myrecipe/myrecipe.html">My Recipe</a>
+        </div>
+
+        <!-- User Account Details -->
+        <div class="Setting">
+          <i class="fa-solid fa-gear"></i>
+          <a href="./Setting/setting.html">Settings</a>
+        </div>
+
+        <div class="log-out">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <a href="#">Logout</a>
+        </div>
+      </div>
+
+      <div class="main">
+        <iframe
+          src="./allRecipe.html"
+          frameborder="0"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
     </div>
 
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let body = document.body;
+
+        let savedTheme = localStorage.getItem("theme");
+        console.log(savedTheme);
+        if (savedTheme === "dark-mode") {
+          body.classList.add("dark-mode");
+        } else {
+          body.classList.add("light-mode");
+        }
+      });
+    </script>
+  </body>
 </html>

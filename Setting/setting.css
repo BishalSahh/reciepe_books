@@ -1,0 +1,29 @@
+.setting{
+    height: 500px;
+    width: 200px;
+    background-color: antiquewhit;
+}
+
+.setting ul li{
+    list-style: none;
+}
+
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+
+.dark-mode .nav{
+    background-color: black;
+    color: white;
+}
+
+.dark-mode .nav div, .dark-mode .nav div a{
+    color: white;
+}
+
+.dark-mode .container.mt-3 .row{
+    color: white;
+
+}

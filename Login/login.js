@@ -36,6 +36,7 @@ function login() {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.error("Login error:", errorCode, errorMessage);
+      alert("first create account");
     });
 }
 

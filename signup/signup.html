@@ -4,6 +4,25 @@
 <head>
   <title>Sign Up</title>
   <link rel="stylesheet" href="signup.css" />
+  <style>
+    body.dark-mode {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let body = document.body;
+
+      let savedTheme = localStorage.getItem("theme");
+      console.log(savedTheme);
+      if (savedTheme === "dark-mode") {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.add("light-mode");
+      }
+    });
+  </script>
 </head>
 
 <body>
@@ -83,6 +102,7 @@
 
     });
   </script>
+  
 </body>
 
 </html>

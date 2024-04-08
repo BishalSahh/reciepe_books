@@ -9,7 +9,7 @@
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
- />
+    />
     <style>
       .card-imge {
         height: 160px;
@@ -17,8 +17,6 @@
         background-position: center !important;
         background-size: contain !important;
         background-repeat: no-repeat !important;
-
-        
       }
     </style>
   </head>
@@ -49,6 +47,25 @@
       function redirectToDetailsPage(mainId, recipeId) {
         window.location.href = `details.html?mainId=${mainId}&recipeId=${recipeId}`;
       }
+    </script>
+    <style>
+      body.dark-mode {
+        background-color: black;
+        color: white;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let body = document.body;
+
+        let savedTheme = localStorage.getItem("theme");
+        console.log(savedTheme);
+        if (savedTheme === "dark-mode") {
+          body.classList.add("dark-mode");
+        } else {
+          body.classList.add("light-mode");
+        }
+      });
     </script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
