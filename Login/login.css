@@ -1,95 +1,81 @@
-body {
-  font-family: arial;
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+
+    body{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    background-color: #232121;
+    display: flex;
+    justify-content: center;
+   
 }
 
-.login-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-  width: 90vh;
-  background-color: #001f3fcf;
-  box-shadow: 0px 20px 20px #001f3f;
-  border: 3px solid;
-  border-top-color: #ffdc00;
-  border-left-color: #ff851b;
-  border-radius: 8px;
+.login-box{
+
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+    background-color: #191919;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+    border-radius:8px;
+    /* box-shadow: 5px 5px 50px 50px rgba(252, 5, 5, 0.699); */
+    animation: animateBg 5s linear infinite; 
 }
 
-h4 {
-  color: #ffdc00;
-  font-size: large;
-  padding: 0;
+@keyframes animateBg{
+    100%{
+        filter: hue-rotate(360deg);
+    }
 }
 
-#login-form {
-  color: #ffdc00;
-  padding-bottom: 20px;
+.login-box input{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid #0399fd;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 20px;
+    transition: 0.25s;
 }
 
-.button {
-  padding-top: 20px;
-  width: 200px;
-  text-align: center;
+.login-box input[type = "button"]{
+
+    border: 0;
+    font-size: 100%;
+    border: 3px solid #04fb6b;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 0.2s;
+  
 }
 
-.button input {
-  background-color: blue;
-  color: white;
-  cursor: pointer;
+.login-box input[type = "submit"]:hover{
+    background-color: #04fb6b;
 }
 
-.button input:hover {
-  background-color: rgb(37, 37, 205);
+h1{
+    color: aqua;
 }
 
-label {
-  display: block;
-  padding: 8px;
-  text-align: center;
-}
-
-input {
-  width: 100%;
-  border: none;
-  border-radius: 3px;
-  padding: 8px;
-  box-sizing: border-box;
-  outline: none;
-}
-
-::placeholder {
-  color: rgb(18, 70, 214);
-  text-align: center;
-}
-
-p {
-  display: inline-block;
-}
-
-.signup-section {
-  color: aqua;
-  padding-left: -10px;
-}
-
-a {
-  display: inline-block;
-  text-decoration: none;
+.signup-section a{
   font-size: 30px;
-  color: blue;
-  transition: 0.5s ease-in-out;
+  color: rgb(16, 216, 30);
 }
 
-a:hover {
-  transform: scale(105%);
-  /* background: url("../index.html"); */
+.signup-section p{
+  font-size:20px;
+  color: #f40c0c;
 }
 
 
+   

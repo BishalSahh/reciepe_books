@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -103,6 +103,61 @@
     });
   </script>
   
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css" />
+  <style>
+    body.dark-mode {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let body = document.body;
+      let savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark-mode") {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.add("light-mode");
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="signup-box">
+    <h1>Sign Up Form</h1>
+    <form id="signup-form">
+      <label>First Name</label>
+      <input type="text" placeholder="Enter firstname" id="firstname" name="first-name" />
+      <label>Last Name</label>
+      <input type="text" placeholder="Enter lastname" id="lastname" name="last-name" />
+      <label>Email</label>
+      <input type="email" placeholder="Enter email" id="email" />
+      <label>Password</label>
+      <input type="password" placeholder="Enter password" id="password" />
+      <label>Confirm Password</label>
+      <input type="password" placeholder="Re-Enter Password" id="ConfirmPassword" name="confirm-password" />
+      <div class="button">
+        <input type="button" value="Submit" id="signup-button" />
+      </div>
+    </form>
+    <p class="para-2">
+      Already have an account?
+      <a href="../Login/login.html" id="login">Login here</a>
+    </p>
+    <p id="error-message"></p>
+  </div>
+
+  <script src="signup.js" type="module"></script>
 </body>
 
 </html>

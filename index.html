@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="./Setting/setting.css" />
+    
   </head>
   <body>
     <header>
@@ -22,19 +23,13 @@
           <div class="logo"></div>
         </div>
         <div class="nav-search">
-          <select class="search-select">
-            <option>category</option>
-            <option>veg</option>
-            <option>non-veg</option>
-          </select>
-          <input placeholder="search Recipe" class="search-input" />
-          <div class="search-icon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
+          
+          <input type="text" placeholder="Welcome to Recipe" class="search-input" id="searchInput"/>
+        
         </div>
 
         <div class="sign-in">
-          <a href="./Login/login.html"> Hello<br><span class="pop">signin</span></a>
+          <a href="./Login/login.html"> Hello<br><span class="pop">sign-in</span></a>
         </div>
         <div class="signup">
           <a href="./signup/signup.html" class="signup">Signup</a>
@@ -50,16 +45,7 @@
           <i class="fa-solid fa-house"></i>
           <a href="#">Home</a>
         </div>
-
-        <!-- <div class="category">
-                <i class="fa-solid fa-list"></i>
-                <select>
-                    <option>Categories</option> 
-                    <option>veg</option>
-                    <option>Non-veg</option>
-                   </select>
-            </div> -->
-
+        
         <div class="upload-recipe">
           <i class="fa-solid fa-cloud-arrow-up"></i>
           <a href="./recipeupload/upload.html">Upload Recipe</a>
@@ -67,7 +53,7 @@
         <div class="trending">
           <i class="fa-regular fa-user"></i>
           <a href="./myrecipe/myrecipe.html">My Recipe</a>
-        </div>
+        </div> 
 
         <!-- User Account Details -->
         <div class="Setting">
@@ -75,10 +61,7 @@
           <a href="./Setting/setting.html">Settings</a>
         </div>
 
-        <div class="log-out">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <a href="#">Logout</a>
-        </div>
+       
       </div>
 
       <div class="main">
@@ -103,6 +86,15 @@
           body.classList.add("light-mode");
         }
       });
-    </script>
+
+
+ </script>
+ 
+ <script src="search.js"></script>
   </body>
-</html>
+</html> 
+
+
+
+
+
